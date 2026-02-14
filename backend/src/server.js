@@ -1,9 +1,10 @@
 const express = require('express'); 
 const Path = require('path');
-const dotenv = require('dotenv');
+require("dotenv").config();
+
 const authRoutes = require('./routes/auth.route');
 const messageRoutes = require('./routes/message.route');
-dotenv.config();
+
 const app = express();
 const connectDB = require('./lib/db');
 

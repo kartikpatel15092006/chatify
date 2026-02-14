@@ -2,6 +2,10 @@ const User = require('../models/user.modle');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookie = require('cookie-parser');
+const { sendWelcomeEmail } = require ('../emails/emailhandler');
+const dotenv = require('dotenv');
+
+
 
 const signup = async (req, res) => {
 const {fullName, email, password} = req.body;
@@ -43,6 +47,9 @@ try{
         });
         res.status(201).json({message:"User created successfully"})
 
+    }
+    try{await sendWelcomeEmail(newUser.email, newUser.fullName, process.env.CLIENT_URL)}catch(err){
+        console.error("Error sending welcome email:", err);
     }
 }
 
