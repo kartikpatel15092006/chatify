@@ -2,13 +2,16 @@ const express = require('express');
 const Path = require('path');
 require("dotenv").config();
 
+
 const authRoutes = require('./routes/auth.route');
 const messageRoutes = require('./routes/message.route');
 
 const app = express();
 const connectDB = require('./lib/db');
 
+const cookieParser = require("cookie-parser");
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api/auth', authRoutes);

@@ -89,7 +89,9 @@ const login = async (req, res) => {
 }
 
 const logout = (req, res) => {
-  
+  if(!req.cookies.token){
+    return res.status(400).json({message:"no user logged in"})
+  }
     res.cookie("token", "", {
         maxAge: 0,
         httpOnly: true
