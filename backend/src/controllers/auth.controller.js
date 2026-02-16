@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const cookie = require('cookie-parser');
 const { sendWelcomeEmail } = require ('../emails/emailhandler');
 const dotenv = require('dotenv');
-
+const {cloudinary} = require('../lib/cloudinary');
 
 
 const signup = async (req, res) => {
@@ -99,5 +99,27 @@ const logout = (req, res) => {
     res.status(200).json({message:"Logout successful"})
 }
 
-module.exports = {signup, login, logout}
+
+
+const updateProfile = async (req, res) => {
+
+    try{
+const {profilepic}= req.body;
+
+if(!profilepic){
+    return res.status(400).json({message:"Profile picture is required"})
+}
+
+const userId = req.user.id;
+
+const uploadResponse = await cloudinary.uploader.upload(profilepic)
+
+const updatedUser = await User.findByIdAndUpdate(userId,{profilepic:uploadResponse.secure_url}, {new:true})
+res.status(200).json({message:"Profile updated successfully", user:updatedUser})}
+
+catch(err){
+    console.error("error in update profile controller");
+    res.status(500).json({message:"Internal server error"})
+}}
+module.exports = {signup, login, logout, updateProfile}
      
