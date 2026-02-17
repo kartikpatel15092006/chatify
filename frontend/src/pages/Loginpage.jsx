@@ -1,8 +1,11 @@
 import React from 'react'
+import BorderAnimatedContainer from '../components/BorderAnimatedContainer'
 
 const Loginpage = () => {
   return (
-    <div className='bg-red-500'>Loginpage</div>
+   <div>
+    login page
+   </div>
   )
 }
 

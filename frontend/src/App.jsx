@@ -4,7 +4,22 @@ import ChatPage from './pages/ChatPage'
 import Loginpage from './pages/Loginpage'
 import SignupPage from './pages/SignupPage'
 import { useAuthStore } from './store/UseAuthStore'
+import { useEffect } from 'react'
+import Pageloader from './components/Pageloader'
+import { Toaster } from 'react-hot-toast' 
 const App = () => {
+
+const {checkAuth, ischecking,authuser} = useAuthStore()
+useEffect(() => {
+  checkAuth()
+}, [checkAuth])
+
+console.log(authuser)
+
+if(ischecking){
+  return <Pageloader/> }
+
+
   return (
     <div className="min-h-screen bg-slate-900 relative flex items-center justify-center p-4 overflow-hidden">
 
@@ -15,11 +30,12 @@ const App = () => {
 
 
     <Routes>
-<Route path='/' element={<ChatPage />} />
-<Route path='/login' element={<Loginpage />} />
-<Route path='/signup' element={<SignupPage />} />
+<Route path='/' element={authuser ? <ChatPage /> : <Loginpage />} />
+<Route path='/login' element={!authuser ? <Loginpage /> : <ChatPage />} />
+<Route path='/signup' element={!authuser ? <SignupPage /> : <ChatPage />} />
 
     </Routes>
+    <Toaster/>
     </div>
   )
 }
