@@ -25,7 +25,7 @@ function ProfileHeader() {
       await updateProfile({ profilePic: base64Image });
     };
   };
-
+console.log(authUser)
   return (
     <div className="p-6 border-b border-slate-700/50">
       <div className="flex items-center justify-between">
