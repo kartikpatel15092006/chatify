@@ -1,9 +1,9 @@
-const resend = require('resend');
+import { Resend } from "resend";
+import { ENV } from "./env.js";
 
+export const resendClient = new Resend(ENV.RESEND_API_KEY);
 
-const resendClient = new resend.Resend(process.env.RESEND_API_KEY);
-const sender = {
-    name: process.env.EMAIL_FROM_NAME,
-  email: process.env.EMAIL_FROM
-}
-module.exports = { resendClient , sender};
+export const sender = {
+  email: ENV.EMAIL_FROM,
+  name: ENV.EMAIL_FROM_NAME,
+};

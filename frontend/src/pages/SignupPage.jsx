@@ -1,21 +1,18 @@
-import React from 'react'
-import { useState } from 'react'
-import BorderAnimatedContainer from '../components/BorderAnimatedContainer'
-import { LockIcon, MailIcon, MessageCircleIcon, UserIcon } from 'lucide-react'
-import { LoaderIcon } from 'react-hot-toast'
-import { Link } from 'react-router'
-import { useAuthStore } from '../store/UseAuthStore'
+import { useState } from "react";
+import { useAuthStore } from "../store/useAuthStore";
+import BorderAnimatedContainer from "../components/BorderAnimatedContainer";
+import { MessageCircleIcon, LockIcon, MailIcon, UserIcon, LoaderIcon } from "lucide-react";
+import { Link } from "react-router";
 
-const SignupPage = () => {
+function SignUpPage() {
+  const [formData, setFormData] = useState({ fullName: "", email: "", password: "" });
+  const { signup, isSigningUp } = useAuthStore();
 
-const [formData, setFormData] = useState({fullName: "", email: "", password: ""})
-const {signup,isSigningUp} = useAuthStore()
-
-
-const handleSubmit = (e) => {
-     e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     signup(formData);
-}
+  };
+
   return (
     <div className="w-full flex items-center justify-center p-4 bg-slate-900">
       <div className="relative w-full max-w-6xl md:h-[800px] h-[650px]">
@@ -122,7 +119,6 @@ const handleSubmit = (e) => {
         </BorderAnimatedContainer>
       </div>
     </div>
-  )
+  );
 }
-
-export default SignupPage
+export default SignUpPage;
